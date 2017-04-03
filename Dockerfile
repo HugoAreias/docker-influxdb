@@ -3,6 +3,8 @@ LABEL maintainer="Hugo Areias <hugo@moonfruit.com>"
 LABEL based-on1="tutum/influxdb" \
       based-on2="library/influxdb"
 
+RUN groupadd -r influxdb && useradd -r -g influxdb influxdb
+
 RUN gpg \
     --keyserver hkp://ha.pool.sks-keyservers.net \
 --recv-keys 05CE15085FC09D18E99EFB22684A14CF2582E0C5
@@ -28,6 +30,6 @@ EXPOSE 8086
 # InfluxDB healthcheck
 HEALTHCHECK CMD curl -sl -I -f localhost:8086/ping || exit 1
 
-VOLUME ["/var/lib/influxdb"]
+VOLUME ["/var/lib/influxdb", "/etc/influxdb"]
 
 ENTRYPOINT ["/run.sh", "-config", "/etc/influxdb/influxdb_config.toml"]
