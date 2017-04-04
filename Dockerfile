@@ -3,7 +3,7 @@ LABEL maintainer="Hugo Areias <hugo@moonfruit.com>"
 LABEL based-on1="tutum/influxdb" \
       based-on2="library/influxdb"
 
-RUN groupadd -r influxdb && useradd -r -g influxdb influxdb
+RUN useradd -r -U influxdb
 
 RUN gpg \
     --keyserver hkp://ha.pool.sks-keyservers.net \
