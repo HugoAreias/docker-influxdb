@@ -1,12 +1,6 @@
 #!/bin/bash
 
 set -m
-CONFIG_FILE="/etc/influxdb/influxdb_config.toml"
-INFLUX_HOST="localhost"
-INFLUX_API_PORT="8086"
-API_URL="http://${INFLUX_HOST}:${INFLUX_API_PORT}"
-
-chown -R influxdb:influxdb /etc/influxdb /var/lib/influxdb
 
 if [ "${PRE_CREATE_DB}" == "**None**" ]; then
     unset PRE_CREATE_DB

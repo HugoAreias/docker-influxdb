@@ -3,8 +3,6 @@ LABEL maintainer="Hugo Areias <hugo@moonfruit.com>"
 LABEL based-on1="tutum/influxdb" \
       based-on2="library/influxdb"
 
-RUN useradd -r -U influxdb
-
 RUN gpg \
     --keyserver hkp://ha.pool.sks-keyservers.net \
 --recv-keys 05CE15085FC09D18E99EFB22684A14CF2582E0C5
@@ -23,6 +21,10 @@ ADD run.sh /run.sh
 RUN chmod +x /*.sh
 
 ENV PRE_CREATE_DB **None**
+ENV CONFIG_FILE "/etc/influxdb/influxdb_config.toml"
+ENV INFLUX_HOST "localhost"
+ENV INFLUX_API_PORT "8086"
+ENV API_URL "http://${INFLUX_HOST}:${INFLUX_API_PORT}"
 
 # HTTP API
 EXPOSE 8086
