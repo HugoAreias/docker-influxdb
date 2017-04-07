@@ -42,14 +42,14 @@ if [ -n "${PRE_CREATE_DB}" ]; then
         echo ""
 
         PASS=${INFLUXDB_INIT_PWD:-root}
-        if [ -n "${INFLUX_ADMIN_USER}" ]; then
+        if [ -n "${INFLUXDB_ADMIN_USER}" ]; then
           echo "=> Creating admin user"
-          influx -host=${INFLUX_HOST} -port=${INFLUX_API_PORT} -execute="CREATE USER ${INFLUX_ADMIN_USER} WITH PASSWORD '${PASS}' WITH ALL PRIVILEGES"
+          influx -host=${INFLUX_HOST} -port=${INFLUX_API_PORT} -execute="CREATE USER ${INFLUXDB_ADMIN_USER} WITH PASSWORD '${PASS}' WITH ALL PRIVILEGES"
           for x in $arr
           do
               echo "=> Creating database: ${x}"
-              influx -host=${INFLUX_HOST} -port=${INFLUX_API_PORT} -username=${INFLUX_ADMIN_USER} -password="${PASS}" -execute="create database ${x}"
-              influx -host=${INFLUX_HOST} -port=${INFLUX_API_PORT} -username=${INFLUX_ADMIN_USER} -password="${PASS}" -execute="grant all PRIVILEGES on ${x} to ${INFLUX_ADMIN_USER}"
+              influx -host=${INFLUX_HOST} -port=${INFLUX_API_PORT} -username=${INFLUXDB_ADMIN_USER} -password="${PASS}" -execute="create database ${x}"
+              influx -host=${INFLUX_HOST} -port=${INFLUX_API_PORT} -username=${INFLUXDB_ADMIN_USER} -password="${PASS}" -execute="grant all PRIVILEGES on ${x} to ${INFLUXDB_ADMIN_USER}"
           done
           echo ""
         else
