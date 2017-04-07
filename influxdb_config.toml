@@ -44,9 +44,6 @@ bind-address = ":8088"
 ###
 
 [data]
-  # Controls if this node holds time series data shards in the cluster
-  enabled = true
-
   dir = "/var/lib/influxdb/data"
 
   # These are the WAL (write ahead log) settings for the storage engine
@@ -80,13 +77,13 @@ bind-address = ":8088"
   # which the engine will snapshot the cache and write it to
   # a new TSM file if the shard hasn't received writes or deletes
   # INFLUXDB_DATA_CACHE_SNAPSHOT_WRITE_COLD_DURATION
-  # cache-snapshot-write-cold-duration = "10m"
+  # cache-snapshot-write-cold-duration = "10m0s"
 
   # CompactFullWriteColdDuration is the duration at which the engine
   # will compact all TSM files in a shard if it hasn't received a
   # write or delete
   # INFLUXDB_DATA_COMPACT_FULL_WRITE_COLD_DURATION
-  # compact-full-write-cold-duration = "4h"
+  # compact-full-write-cold-duration = "4h0m0s"
 
   # The maximum number of series allowed per database. The default setting is one million.
   # Change the setting to 0 to allow an unlimited number of series per database.
@@ -165,13 +162,13 @@ bind-address = ":8088"
   enabled = true
 
   # INFLUXDB_SHARD_PRECREATION_CHECK_INTERVAL
-  check-interval = "10m"
+  check-interval = "10m0s"
 
   # The maximum period in the future for which InfluxDB precreates shards.
   # The 30m default should work for most systems.
   # Increasing this setting too far in the future can cause inefficiencies.
   # INFLUXDB_SHARD_PRECREATION_ADVANCE_PERIOD
-  advance-period = "30m"
+  advance-period = "30m0s"
 
 ###
 ### Controls the system self-monitoring, statistics and diagnostics.
@@ -287,6 +284,10 @@ bind-address = ":8088"
   # exceed the max-row-limit setting.
   # INFLUXDB_HTTP_MAX_CONNECTION_LIMIT
   max-row-limit = 0
+
+  # Limit the number of connections for the http service. 0 is unlimited.
+  # INFLUXDB_HTTP_MAX_CONNECTION_LIMIT
+  # max-connection-limit = 0
 
   # Set to true to enable http service over unix domain socket.
   # INFLUXDB_HTTP_UNIX_SOCKET_ENABLED
