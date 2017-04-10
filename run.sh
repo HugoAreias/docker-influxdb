@@ -18,9 +18,9 @@ echo "influxdb configuration: "
 cat ${CONFIG_FILE}
 echo "=> Starting InfluxDB ..."
 if [ -n "${JOIN}" ]; then
-  exec influxd -join ${JOIN} "$@" &
+  exec influxd -join ${JOIN} -config ${CONFIG_FILE} "$@" &
 else
-  exec influxd "$@" &
+  exec influxd -config ${CONFIG_FILE} "$@" &
 fi
 
 # Pre create database on the initiation of the container

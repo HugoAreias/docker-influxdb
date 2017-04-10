@@ -16,12 +16,12 @@ RUN wget -q https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERS
     rm -f influxdb_${INFLUXDB_VERSION}_amd64.deb* && \
     rm -rf /var/lib/apt/lists/*
 
-COPY influxdb_config.toml /etc/influxdb/influxdb_config.toml
+COPY config.toml /etc/influxdb/config.toml
 ADD run.sh /run.sh
 RUN chmod +x /*.sh
 
 ENV PRE_CREATE_DB **None**
-ENV CONFIG_FILE "/etc/influxdb/influxdb_config.toml"
+ENV CONFIG_FILE "/etc/influxdb/config.toml"
 ENV INFLUX_HOST "localhost"
 ENV INFLUX_API_PORT "8086"
 ENV API_URL "http://${INFLUX_HOST}:${INFLUX_API_PORT}"
@@ -34,4 +34,4 @@ HEALTHCHECK CMD curl -sl -I -f localhost:8086/ping || exit 1
 
 VOLUME ["/var/lib/influxdb", "/etc/influxdb"]
 
-ENTRYPOINT ["/run.sh", "-config", "/etc/influxdb/influxdb_config.toml"]
+ENTRYPOINT ["/run.sh"]
